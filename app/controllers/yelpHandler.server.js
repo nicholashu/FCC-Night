@@ -16,7 +16,7 @@ var yelp = new Yelp({
 
 function YelpHandler() {
   // Get list of places for a location
-  this.location = function(req, res) {
+  this.barLocationSearch = function(req, res) {
     yelp.search({term: "bar", location: req.params.location}, function(error, data) {
       if(error) { return handleError(data, error); }
       return res.status(200).json(data);

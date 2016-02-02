@@ -88,4 +88,7 @@ app.route('/')
     failureFlash: true // allow flash messages
   }));
 
+  app.route('/api/yelp/:location')
+  .get(yelpHandler.barLocationSearch); //gets list of bars based on location
+
 };
