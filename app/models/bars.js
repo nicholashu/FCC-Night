@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Bar = new Schema({
-    caption : String,
-    url : String,
-    owner: String
+  url: {type:String, required: true},
+  name: {type:String, required: true},
+  rating_img_url: {type:String, required: true}
 });
 
 

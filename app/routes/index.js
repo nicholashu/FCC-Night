@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var BarHandler = require(path + '/app/controllers/barHandler.server.js');
+var YelpHandler = require(path + '/app/controllers/yelpHandler.server.js')
 
 
 module.exports = function(app, passport) {
@@ -15,6 +16,7 @@ module.exports = function(app, passport) {
   }
 
   var barHandler = new BarHandler();
+  var yelpHandler = new YelpHandler();
 
 app.route('/')
   .get(function(req,res){

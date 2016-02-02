@@ -7,6 +7,8 @@
 			['$scope',
 			'$resource',
 			function ($scope, $resource) {
-			//functions go in here
+
+		
+
 		}]);
 })();
