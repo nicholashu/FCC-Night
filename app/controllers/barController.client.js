@@ -11,7 +11,11 @@
         $scope.location = '';
         $scope.isLoading = false;
         $scope.searching = false;
-
+        $scope.getUser = function() {
+                UserService.getUser().then(function(result) {
+                        $scope.user = result.data;
+                    });
+                };
 
         $scope.getUser();
 
