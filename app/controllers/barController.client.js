@@ -4,8 +4,8 @@
   angular
     .module('BarController', ['clementineBarApp'])
     .controller('BarCtrl', ['$scope',
-      '$resource', '$window', '$http',
-      function($scope, $resource, $window, $http) {
+      '$resource', '$window', '$http', 'UserService',
+      function($scope, $resource, $window, $http, UserService) {
         var appUrl = $window.location.origin;
         var yelpUrl = appUrl + '/api/yelp/';
         $scope.location = '';
@@ -13,6 +13,7 @@
         $scope.searching = false;
 
 
+        $scope.getUser();
 
         $scope.activeSearch = function() {
           if ($scope.searching === true) {
