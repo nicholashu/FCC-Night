@@ -27,10 +27,8 @@ function BarHandler() {
     this.setGoing = function(req, res) {
       Bar.findandModify({
         query: {id: req.params.location},
-
         update: {
-          going: going++,
-          $setOnInsert: {  id: req.params.location,going: 1}
+          $setOnInsert: {  id: req.params.location, going: 1}
         },
         new: true,
         upsert: true
