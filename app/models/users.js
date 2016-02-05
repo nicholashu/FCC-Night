@@ -9,12 +9,6 @@ var User = new Schema({
         email : String,
         password : String,
     },
-	github: {
-		id: String,
-		displayName: String,
-		username: String,
-    publicRepos: Number
-	},
 	twitter: {
         id: String,
         token: String,

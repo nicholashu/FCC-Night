@@ -20,7 +20,7 @@ module.exports = function (passport) {
 	passport.use(new TwitterStrategy({
     consumerKey: configAuth.twitterAuth.consumerKey,
     consumerSecret: configAuth.twitterAuth.consumerSecret,
-    callbackURL: configAuth.githubAuth.callbackURL
+    callbackURL: configAuth.twitterAuth.callbackURL
   },
 	function (token, refreshToken, profile, done) {
 		process.nextTick(function () {
