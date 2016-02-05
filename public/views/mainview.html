@@ -1,1 +1,35 @@
-This is the main view
+<div class="container">
+	<header id="header" class="text-center">
+		<h1>Where are you going tonight?</h1>
+	</header>
+	<div class="row">
+		<div class="col-md-12"><br>
+		<h3 class="text-center">Where do you want to go to tonight?<br>
+		See what's going to be busy tonight.</h3>
+		<form class="form-wrapper cf" ng-submit="getBars(location)">
+        <input type="text" ng-model="location" placeholder="Where are you?">
+        <button type="submit">Search</button>
+    </form>
+			<div class="container">
+				<div class ="loading-sign text-center" ng-show="loading()">
+				<h3>Loading...</h3>
+				</div>
+				<div ng-show="activeSearch()" class="row well" ng-repeat="bar in bars">
+				<div class="row">
+				</div>
+				<a ng-href="{{bar.url}}">{{ bar.name }}</a>
+				<img class="img-responsive" ng-src="{{bar.rating_img_url}}">
+				<div class="going-button">
+				<button class="btn btn-primary" ng-click="submitGoing(bar.id)">{{bar.going}}Going</button>
+				</div>
+				<div class="rev-text">
+				{{bar.snippet_text}}
+				</div>
+				<div class="rev-image">
+					<img class="img" ng-src="{{bar.image_url}}">
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+</div>

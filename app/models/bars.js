@@ -4,9 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Bar = new Schema({
-  url: {type:String, required: true},
-  name: {type:String, required: true},
-  rating_img_url: {type:String, required: true}
+  id: String,
+  going: Number
 });
 
 
