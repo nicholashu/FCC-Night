@@ -1,6 +1,5 @@
 'use strict';
 
-var GitHubStrategy = require('passport-github').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/users');
@@ -52,38 +51,6 @@ module.exports = function (passport) {
 	}));
 
 
-passport.use(new GitHubStrategy({
-	clientID: configAuth.githubAuth.clientID,
-	clientSecret: configAuth.githubAuth.clientSecret,
-	callbackURL: configAuth.githubAuth.callbackURL
-},
-function (token, refreshToken, profile, done) {
-	process.nextTick(function () {
-		User.findOne({ 'github.id': profile.id }, function (err, user) {
-			if (err) {
-				return done(err);
-			}
-
-			if (user) {
-				return done(null, user);
-			} else {
-				var newUser = new User();
-
-				newUser.github.id = profile.id;
-				newUser.github.username = profile.username;
-				newUser.github.displayName = profile.displayName;
-				newUser.github.publicRepos = profile._json.public_repos;
-				newUser.save(function (err) {
-					if (err) {
-						throw err;
-					}
-
-					return done(null, newUser);
-				});
-			}
-		});
-	});
-}));
 
 	passport.use('local-signup', new LocalStrategy({
 			// by default, local strategy uses username and password, we will override with email

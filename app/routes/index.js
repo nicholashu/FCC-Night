@@ -23,23 +23,11 @@ app.route('/')
     res.sendfile(path + '/public/index.html');
   });
 
-  app.route('/login')
-    .get(function(req, res) {
-      res.sendFile(path + '/public/login.html');
-    });
-
-
-  app.route('/signup')
-    .get(function(req, res) {
-      res.sendFile(path + '/public/signup.html', {
-        message: req.flash('signupMessage')
-      });
-    });
 
   app.route('/logout')
     .get(function(req, res) {
       req.logout();
-      res.redirect('/login');
+      res.redirect('/');
     });
 
 
@@ -48,21 +36,12 @@ app.route('/')
       res.json(req.user);
     });
 
-  app.route('/auth/github')
-    .get(passport.authenticate('github'));
-
-  app.route('/auth/github/callback')
-    .get(passport.authenticate('github', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    }));
-
   app.get('/auth/twitter',
     passport.authenticate('twitter'));
 
   app.get('/auth/twitter/callback',
     passport.authenticate('twitter', {
-      failureRedirect: '/login'
+      failureRedirect: '/'
     }),
     function(req, res) {
       // Successful authentication, redirect home.
