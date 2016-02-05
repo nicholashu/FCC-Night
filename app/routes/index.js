@@ -71,5 +71,5 @@ app.route('/')
   .get(yelpHandler.barLocationSearch); //gets list of bars based on location
 
   app.route('/api/reserve/:location/:user')
-  .post(barHandler.setGoing);
+  .post(isLoggedIn, barHandler.setGoing);
 };
