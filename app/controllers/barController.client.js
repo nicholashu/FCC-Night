@@ -46,7 +46,7 @@
         };
 
         $scope.submitGoing = function(bar) {
-          var user = $scope.user;
+          var user = $scope.user._id;
           console.log(user)
           $http.post('/api/reserve/' + bar + '/' + user).success(function(response) {
 						console.log(response)
