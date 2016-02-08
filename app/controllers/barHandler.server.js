@@ -25,6 +25,8 @@ function BarHandler() {
     };
 
     this.setAttending = function(req, res){
+      console.log("in the proccess")
+      console.log(req.data)
           Bar.findOneAndUpdate({"id": req.params.location},
            {$addToSet: {"attending": req.params.user}},
            {"new": true, "upsert": true},
