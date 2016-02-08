@@ -31,6 +31,7 @@ app.route('/')
     });
 
 
+
   app.route('/api/:id')
     .get(isLoggedIn, function(req, res) {
       res.json(req.user);

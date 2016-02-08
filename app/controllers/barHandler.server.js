@@ -25,8 +25,10 @@ function BarHandler() {
     };
 
     this.setAttending = function(req, res){
-
-          Events.findOneAndUpdate({"id": req.params.location}, {$addToSet: {"attending": req.params.user}}, {"new": true, "upsert": true}, function(err, doc){
+          Bar.findOneAndUpdate({"id": req.params.location},
+           {$addToSet: {"attending": req.params.user}},
+           {"new": true, "upsert": true},
+           function(err, doc){
             if(err){throw err;}
             console.log("\nReturned doc");
             console.log(doc);
