@@ -39,7 +39,6 @@ function YelpHandler() {
               });
               barIds.push(bar.id);
             });
-            console.log(barList);
             console.log("inserting into Db");
             Bars.create(barList);
             console.log("added to Db! /////// Finding Bars");
@@ -52,10 +51,10 @@ function YelpHandler() {
                 console.log("running through found Bars")
                 yelpBars.every(function(v) {
                   if (bar.id === v._id) {
-                    if (bar[index].image_url) {
-                      yelpBar[index].image_url = bar.image_url.replace("http://", "https://");
+                    if (yelpBars[index].snippet_image_url) {
+                      yelpBars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
                     }
-                    yelpBar[index]['total'] = v.total;
+                    yelpBars[index]['total'] = v.total;
                     return false;
                   } else {
                     return true;
