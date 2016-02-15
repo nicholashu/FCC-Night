@@ -38,7 +38,9 @@
         $scope.getBars = function(location) {
           $scope.isLoading = true;
           $http.get(yelpUrl + location).then(function(bars) {
-            $scope.bars = bars.data.businesses;
+            console.log("getting bars");
+            console.log(bars);
+            $scope.bars = bars.data;
 						console.log($scope.bars);
             $scope.isLoading = false;
             $scope.searching = true;

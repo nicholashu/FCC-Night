@@ -1,7 +1,7 @@
 'use strict';
 
 
-var Bar = require('../models/bars.js');
+var Bars = require('../models/bars.js');
 
 function BarHandler() {
 
@@ -25,36 +25,19 @@ function BarHandler() {
     };
 
     this.setAttending = function(req, res){
-      console.log("in the proccess")
-      console.log(req.data)
-          Bar.findOneAndUpdate({"id": req.params.location},
+          Bars.findOneAndUpdate({
+            "id": req.params.location
+          },
            {$addToSet: {"attending": req.params.user}},
            {"new": true, "upsert": true},
-           function(err, doc){
-            if(err){throw err;}
-            console.log("\nReturned doc");
-            console.log(doc);
-            res.json({"numAttnd": doc.attending.length});
-          });
+           function(err) {
+                if (err) {
+                    throw err;
+                }
+                res.send(req.body);
+            });
         };
 
-    this.addPinNew = function(req, res) {
-        var newDoc = new Pins({
-              caption: req.body.caption,
-              url: req.body.url,
-              owner: req.body.owner
-        });
-
-        newDoc.save(function(err, doc) {
-            if (err) {
-                throw err;
-            }
-
-            res.send(doc);
-        });
-
-
-    };
 
     //add is owner flag..
     this.removePin = function(req, res) {
@@ -68,21 +51,6 @@ function BarHandler() {
         });
     };
 
-    this.editPin = function(req, res) {
-
-        Pins.findOneAndUpdate({
-            "_id": req.body.id
-        },{
-              caption: req.body.caption,
-              url: req.body.url
-            }, function(err) {
-            if (err) {
-                console.log(err)
-                throw err;
-            }
-            res.send(req.body);
-        });
-    };
 }
 
 module.exports = BarHandler;
