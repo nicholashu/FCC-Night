@@ -79,11 +79,10 @@ function YelpHandler() {
                 console.log(docs);
                 console.log("updated user info with bar")
                 if (docs){
-                  Bars.findAndModify(
+                  Bars.update(
                     {_id: bar},
-                    [['total' , 'asc']],
+                    [['going' , 'asc']],
 									  { $inc: { total: 1 } },
-									  {new : true},
                     function (err, results){
                       if (err) {
                         console.log(err);
