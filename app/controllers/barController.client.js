@@ -49,6 +49,7 @@
           var user = $scope.user._id;
           $http.post('/api/reserve/' + bar + '/' + user).then(function(response) {
 						console.log(response);
+            console.log("checking reservation")
             checkReservations();
           });
         };
