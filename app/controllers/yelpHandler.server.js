@@ -69,8 +69,8 @@ function YelpHandler() {
 
         this.makeReservation = function (req, res) {
             console.log("Inserting RSVP");
-            var user = req.body.userId;
-            var bar = req.body.barId;
+            var user = req.params.userId;
+            var bar = req.params.barId;
             console.log(req);
             Users.update(
               {'_id' : req.body.userId},
