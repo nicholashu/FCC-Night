@@ -39,18 +39,14 @@
           $scope.isLoading = true;
           $http.get(yelpUrl + location).then(function(bars) {
             console.log("getting bars");
-            console.log(bars);
             $scope.bars = bars.data;
-						console.log($scope.bars);
             $scope.isLoading = false;
             $scope.searching = true;
           });
         };
 
         $scope.submitGoing = function(bar) {
-          var user = $scope.user._id;
-          console.log(user)
-          $http.post('/api/reserve/' + bar + '/' + user).success(function(response) {
+          $http.post('/api/reserve/' + bar + '/' + user).then(function(response) {
 						console.log(response)
           });
         };
