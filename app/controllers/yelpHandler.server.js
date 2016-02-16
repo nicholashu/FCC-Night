@@ -76,14 +76,16 @@ function YelpHandler() {
               {'_id' : user},
 					    { $addToSet : { 'shared.bars' : bar}},
               function (err,docs){
+                console.log(err);
                 console.log(docs);
                 console.log("updated user info with bar")
                 if (docs){
                   Bars.update(
-                    {_id: bar},
+                    {'_id': bar},
                     [['going' , 'asc']],
 									  { $inc: { total: 1 } },
                     function (err, results){
+                      console.log("updated bar!");
                       if (err) {
                         console.log(err);
                         throw err;
