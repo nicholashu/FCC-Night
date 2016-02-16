@@ -72,14 +72,14 @@ function YelpHandler() {
             var user = req.params.userId;
             var bar = req.params.barId;
             console.log(user);
-            Users.update(
+            Users.findOneAndUpdate(
               {'_id' : req.body.userId},
 					    { $addToSet : { 'shared.bars' : req.body.barId }},
               function (err,docs){
                 console.log(docs);
                 console.log("updated user info with bar")
                 if (docs){
-                  Bars.findAndModify(
+                  Bars.findOneAndUpdate(
                     {_id: req.body.barId},
                     [['total' , 'asc']],
 									  { $inc: { total: 1 } },
