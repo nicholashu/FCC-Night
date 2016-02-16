@@ -68,6 +68,7 @@ function YelpHandler() {
   };
 
   this.checkReservations = function (req, res){
+    var barIds = [];
     yelp.search({
         term: "bar",
         location: req.params.location,
@@ -78,11 +79,11 @@ function YelpHandler() {
         var yelpBars = data.businesses;
         yelpBars.forEach(function(bar) {
           barIds.push(bar.id);
-    });
+        });
     Bars.find().where('_id').in(barIds).exec(function(err, yelpBars){
         return res.status(200).json(yelpBars);
     });
-
+  });
   };
 
   this.makeReservation = function(req, res) {
