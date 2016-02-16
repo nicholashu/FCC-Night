@@ -71,10 +71,13 @@ function YelpHandler() {
             console.log("Inserting RSVP");
             var user = req.body.userId;
             var bar = req.body.barId;
+            console.log(user);
+            console.log(bar);
             Users.update(
               {'_id' : req.body.userId},
 					    { $addToSet : { 'shared.bars' : req.body.barId }},
               function (docs){
+                console.log("updated user info with bar")
                 if (docs){
                   Bars.findAndModify(
                     {_id: req.body.barId},
