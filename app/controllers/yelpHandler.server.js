@@ -76,6 +76,7 @@ function YelpHandler() {
               {'_id' : req.body.userId},
 					    { $addToSet : { 'shared.bars' : req.body.barId }},
               function (docs){
+                console.log(docs);
                 console.log("updated user info with bar")
                 if (docs){
                   Bars.findAndModify(
