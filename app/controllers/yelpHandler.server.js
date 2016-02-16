@@ -81,6 +81,8 @@ function YelpHandler() {
           barIds.push(bar.id);
         });
     Bars.find().where('_id').in(barIds).exec(function(err, yelpBars){
+  console.log(err);
+  console.log(yelpBars);
         return res.status(200).json(yelpBars);
     });
   });
