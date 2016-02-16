@@ -18,92 +18,116 @@ var yelp = new Yelp({
 function YelpHandler() {
   // Get list of places for a location
   this.barLocationSearch = function(req, res) {
-     console.log("searching for bars");
-      var barList = [];
-      var barIds = [];
-      var yelpBars = [];
-      yelp.search({
-          term: "bar",
-          location: req.params.location,
-          sort: 1,
-          limit: 5
-        })
-        .then(function(data) {
-          console.log("found bars");
-            var yelpBars = data.businesses;
-            yelpBars.forEach(function(bar) {
-              console.log("pushing bar to barList");
-              barList.push({
-                _id: bar.id,
-                name: bar.name,
-                going: 0
-              });
-              barIds.push(bar.id);
+    console.log("searching for bars");
+    var barList = [];
+    var barIds = [];
+    var yelpBars = [];
+    yelp.search({
+        term: "bar",
+        location: req.params.location,
+        sort: 1,
+        limit: 5
+      })
+      .then(function(data) {
+        console.log("found bars");
+        var yelpBars = data.businesses;
+        yelpBars.forEach(function(bar) {
+          console.log("pushing bar to barList");
+          barList.push({
+            _id: bar.id,
+            name: bar.name,
+            going: 0
+          });
+          barIds.push(bar.id);
+        });
+        console.log("inserting into Db");
+        Bars.create(barList);
+        console.log("added to Db! /////// Finding Bars");
+        Bars.find().where('_id').in(barIds).exec(function(err, yelpBars) {
+          console.log("Found!")
+          if (err) {
+            console.log(err);
+          }
+          yelpBars.forEach(function(bar, index) {
+            console.log("running through found Bars")
+            yelpBars.every(function(v) {
+              if (bar.id === v._id) {
+                if (yelpBars[index].snippet_image_url) {
+                  yelpBars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
+                }
+                yelpBars[index]['total'] = v.total;
+                return false;
+              } else {
+                return true;
+              }
             });
-            console.log("inserting into Db");
-            Bars.create(barList);
-            console.log("added to Db! /////// Finding Bars");
-            Bars.find().where('_id').in(barIds).exec(function(err, yelpBars) {
-              console.log("Found!")
+          });
+        });
+        return res.status(200).json(yelpBars);
+      });
+  };
+
+  this.checkReservations = function (req, res){
+    yelp.search({
+        term: "bar",
+        location: req.params.location,
+        sort: 1,
+        limit: 5
+      })
+    .then(function(data) {
+        var yelpBars = data.businesses;
+        yelpBars.forEach(function(bar) {
+          barIds.push(bar.id);
+    });
+    Bars.find().where('_id').in(barIds).exec(function(err, yelpBars){
+        return res.status(200).json(yelpBars);
+    });
+
+  };
+
+  this.makeReservation = function(req, res) {
+    console.log("Inserting RSVP");
+    var user = req.params.userId;
+    var bar = req.params.barId;
+    console.log(user);
+    Users.update({
+        '_id': user
+      }, {
+        $addToSet: {
+          'shared.bars': bar
+        }
+      },
+      function(err, docs) {
+        console.log("updated user info with bar")
+        if (docs) {
+          Bars.update({
+              '_id': bar
+            }, {
+              $inc: {
+                going: 1
+              }
+            },
+            function(err, results) {
+              console.log("updated bar!");
               if (err) {
                 console.log(err);
+                throw err;
               }
-              yelpBars.forEach(function(bar, index) {
-                console.log("running through found Bars")
-                yelpBars.every(function(v) {
-                  if (bar.id === v._id) {
-                    if (yelpBars[index].snippet_image_url) {
-                      yelpBars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
-                    }
-                    yelpBars[index]['total'] = v.total;
-                    return false;
-                  } else {
-                    return true;
-                  }
-                });
-                });
-              });
-              return res.status(200).json(yelpBars);
-            });
-          };
+              res.json(results);
+            }
+          );
+        }
+      }
+    );
+  };
 
-        this.makeReservation = function (req, res) {
-            console.log("Inserting RSVP");
-            var user = req.params.userId;
-            var bar = req.params.barId;
-            console.log(user);
-            Users.update(
-              {'_id' : user},
-					    { $addToSet : { 'shared.bars' : bar}},
-              function (err,docs){
-                console.log(err);
-                console.log(docs);
-                console.log("updated user info with bar")
-                if (docs){
-                  Bars.update(
-                    {'_id': bar},
-									  { $inc: { going: 1 } },
-                    function (err, results){
-                      console.log("updated bar!");
-                      if (err) {
-                        console.log(err);
-                        throw err;
-                      }
-                      res.json(results);
-                    }
-                  );
-                }
-              }
-            );
-        };
-
-        };
+};
 
 
-  module.exports = YelpHandler;
+module.exports = YelpHandler;
 
 
-  /*  Bars.find().sort({
+/*  Bars.find().sort({
   _id: -1
 })
 .exec(function(err, result) {

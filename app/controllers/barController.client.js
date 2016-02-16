@@ -48,10 +48,16 @@
         $scope.submitGoing = function(bar) {
           var user = $scope.user._id;
           $http.post('/api/reserve/' + bar + '/' + user).then(function(response) {
-						console.log(response)
+						console.log(response);
+            checkReservations();
           });
         };
 
+        function checkReservations (){
+          $http.get('/api/reserve/').then(function(response){
+            console.log(response);
+          })
+        }
 
 
       }
