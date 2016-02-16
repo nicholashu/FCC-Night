@@ -74,7 +74,8 @@ function YelpHandler() {
             console.log(user);
             Users.findOneAndUpdate(
               {'_id' : req.body.userId},
-					    { $addToSet : { 'shared.bars' : req.body.barId }},
+					    { $push : { 'shared.bars' : req.body.barId }},
+              {upsert:true},
               function (err,docs){
                 console.log(err);
                 console.log(docs);
