@@ -16,10 +16,7 @@ var User = new Schema({
         username: String
     },
 	shared: {
-		name: String,
-		country: String,
-    state: String,
-    city: String
+				bars: []
 	}
 });
 

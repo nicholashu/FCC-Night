@@ -53,6 +53,6 @@ app.route('/')
   app.route('/api/yelp/:location')
   .get(yelpHandler.barLocationSearch); //gets list of bars based on location
 
-  app.route('/api/reserve/:location/:user')
-  .post(barHandler.setAttending);
+  app.route('/api/reserve/:barId/:userId')
+  .post(isLoggedIn, yelpHandler.makeReservation);
 };

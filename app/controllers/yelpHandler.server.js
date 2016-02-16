@@ -2,9 +2,10 @@
 
 
 var Bars = require('../models/bars.js');
-
+var Users = require('../models/users.js');
 
 var Yelp = require("yelp");
+
 
 var yelp = new Yelp({
   consumer_key: "tQ-KNmyUsBQufogw7fFnRw",
@@ -17,7 +18,7 @@ var yelp = new Yelp({
 function YelpHandler() {
   // Get list of places for a location
   this.barLocationSearch = function(req, res) {
-     console.log("searhing for bars");
+     console.log("searching for bars");
       var barList = [];
       var barIds = [];
       var yelpBars = [];
@@ -65,6 +66,38 @@ function YelpHandler() {
               return res.status(200).json(yelpBars);
             });
           };
+
+        this.makeReservation = function (req, res) {
+            console.log("Inserting RSVP");
+            var user = req.body.userId;
+            var bar = req.body.barId;
+            Users.update(
+              {'_id' : req.body.userId},
+					    { $addToSet : { 'shared.bars' : req.body.barId }},
+              function (err,docs){
+                if (err) {
+							    console.log(err);
+							    throw err;
+                }
+                else if (docs.result.nModified){
+                  Bars.findAndModify(
+                    {_id: req.body.barId},
+                    [['total' , 'asc']],
+									  { $inc: { total: 1 } },
+									  {new : true},
+                    function (err, results){
+                      if (err) {
+                        console.log(err);
+                        throw err;
+                      }
+                      res.json(results);
+                    }
+                  );
+                }
+              }
+            );
+        };
+
         };
 
 
