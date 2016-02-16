@@ -82,7 +82,6 @@ function YelpHandler() {
                 if (docs){
                   Bars.update(
                     {'_id': bar},
-                    [['going' , 'asc']],
 									  { $inc: { going: 1 } },
                     function (err, results){
                       console.log("updated bar!");
