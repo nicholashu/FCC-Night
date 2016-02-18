@@ -45,21 +45,26 @@
           });
         };
 
-        $scope.submitGoing = function(bar) {
-          var user = $scope.user._id;
-          $http.post('/api/reserve/' + bar + '/' + user).then(function(response) {
-						console.log(response);
-            console.log("checking reservation")
-            checkReservations();
-          });
-        };
-
         function checkReservations (){
-          $http.get('/api/reserve/').then(function(response){
-            console.log(response);
-          })
+          $http.get(yelpUrl + $scope.location).then(function(bars) {
+            $scope.bars = bars.data;
+          });
         }
 
+
+        $scope.submitGoing = function(bar) {
+          if ($scope.user === undefined){
+            window.location.href = '/auth/twitter';
+          }else{
+            var user = $scope.user._id;
+            $http.post('/api/reserve/' + bar + '/' + user).then(function(response) {
+  						console.log(response);
+              console.log("checking reservation")
+              checkReservations();
+            });
+          }
+
+        };
 
       }
     ]);

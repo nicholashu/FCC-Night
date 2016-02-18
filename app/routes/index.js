@@ -8,6 +8,7 @@ var YelpHandler = require(path + '/app/controllers/yelpHandler.server.js')
 module.exports = function(app, passport) {
 
   function isLoggedIn(req, res, next) {
+    console.log("checking login");
     if (req.isAuthenticated()) {
       return next();
     } else {
