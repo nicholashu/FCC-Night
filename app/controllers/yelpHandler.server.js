@@ -22,6 +22,7 @@ function YelpHandler() {
     var barList = [];
     var barIds = [];
     var yelpBars = [];
+    var output = [];
     yelp.search({
         term: "bar",
         location: req.params.location,
@@ -31,8 +32,8 @@ function YelpHandler() {
       .then(function(data) {
         console.log("found bars");
         var yelpBars = data.businesses;
+        console.log("pushing bar to barList");
         yelpBars.forEach(function(bar) {
-          console.log("pushing bar to barList");
           barList.push({
             _id: bar.id,
             name: bar.name,
@@ -43,27 +44,28 @@ function YelpHandler() {
         console.log("inserting into Db");
         Bars.create(barList);
         console.log("added to Db! /////// Finding Bars");
-        Bars.find().where('_id').in(barIds).exec(function(err, yelpBars) {
+        Bars.find().where('_id').in(barIds).exec(function(err, bars) {
           console.log("Found!")
           if (err) {
             console.log(err);
           }
-          yelpBars.forEach(function(bar, index) {
+          bars.forEach(function(bar, index) {
             console.log("running through found Bars")
-            yelpBars.every(function(v) {
+            bar.every(function(v) {
               if (bar.id === v._id) {
-                if (yelpBars[index].snippet_image_url) {
-                  yelpBars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
+                if (bars[index].snippet_image_url) {
+                  bars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
                 }
-                yelpBars[index]['total'] = v.total;
+                bars[index]['total'] = v.total;
                 return false;
               } else {
                 return true;
               }
             });
           });
+
+          return res.status(200).json(yelpBars);
         });
-        return res.status(200).json(yelpBars);
       });
   };
 
