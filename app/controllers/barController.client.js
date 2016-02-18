@@ -48,7 +48,7 @@
         };
 
         function checkReservations (){
-          $http.get(yelpUrl + $scope.location).then(function(bars) {
+          $http.get(yelpUrl + LocationStorage.location).then(function(bars) {
             $scope.bars = bars.data;
           });
         }
