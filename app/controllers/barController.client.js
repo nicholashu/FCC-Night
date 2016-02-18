@@ -3,9 +3,6 @@
 (function() {
   angular
     .module('BarController', ['clementineBarApp'])
-    .service('LocationStorage', ['$http', '$location', function($http, $location) {
-            var location = "";
-        }])
     .controller('BarCtrl', ['$scope',
       '$resource', '$window', '$http', 'LocationStorage', 'UserService',
       function($scope, $resource, $window, $http, LocationStorage, UserService) {
@@ -40,7 +37,7 @@
         };
 
         $scope.getBars = function(location) {
-          LocationStorage.location = location;
+          console.log(location);
           $scope.isLoading = true;
           $http.get(yelpUrl + location).then(function(bars) {
             console.log("getting bars");
