@@ -2,7 +2,7 @@
 
 (function() {
 
-  angular.module('clementineBarApp', ['ngRoute', 'ngResource', 'BarController'])
+  angular.module('clementineBarApp', ['ngRoute', 'ngResource','ngStorage', 'BarController'])
     .config(['$routeProvider',
       function($routeProvider) {
         $routeProvider.

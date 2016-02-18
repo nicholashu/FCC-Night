@@ -4,12 +4,13 @@
   angular
     .module('BarController', ['clementineBarApp'])
     .controller('BarCtrl', ['$scope',
-      '$resource', '$window', '$http', 'LocationStorage', 'UserService',
-      function($scope, $resource, $window, $http, LocationStorage, UserService) {
+      '$resource', '$window', '$http','$localStorage',
+    '$sessionStorage', 'UserService',
+      function($scope, $resource, $window, $http,$localStorage,
+    $sessionStorage, UserService) {
         var appUrl = $window.location.origin;
         var yelpUrl = appUrl + '/api/yelp/';
-        $scope.LocationStorage = LocationStorage;
-        $scope.location = '';
+        $scope.$storage = $localStorage;
         $scope.isLoading = false;
         $scope.searching = false;
         $scope.getUser = function() {
@@ -48,7 +49,7 @@
         };
 
         function checkReservations (){
-          $http.get(yelpUrl + LocationStorage.location).then(function(bars) {
+          $http.get(yelpUrl + $scope.$storage.location).then(function(bars) {
             $scope.bars = bars.data;
           });
         }
