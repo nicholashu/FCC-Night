@@ -30,9 +30,9 @@ function YelpHandler() {
         limit: 5
       })
       .then(function(data) {
-        console.log("found bars");
+
         var yelpBars = data.businesses;
-        console.log("pushing bar to barList");
+
         yelpBars.forEach(function(bar) {
           barList.push({
             _id: bar.id,
@@ -41,24 +41,22 @@ function YelpHandler() {
           });
           barIds.push(bar.id);
         });
-        console.log("inserting into Db");
+
         Bars.create(barList);
-        console.log("added to Db! /////// Finding Bars");
+
         Bars.find().where('_id').in(barIds).exec(function(err, bars) {
-          console.log("Found!")
+
           if (err) {
             console.log(err);
           }
           bars.forEach(function(bar, index) {
-            console.log("running through found Bars")
-            bar.every(function(v) {
-              if (bar.id === v._id) {
-                if (bars[index].snippet_image_url) {
-                  bars[index].snippet_image_url = bar.snippet_image_url.replace("http://", "https://");
-                }
+            yelpBars.every(function(v) {
+              if (bar.id === v.id) {
+                v.going = bar.going;
                 bars[index]['total'] = v.total;
                 return false;
-              } else {
+              } 
+              else {
                 return true;
               }
             });
