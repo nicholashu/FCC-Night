@@ -3,15 +3,15 @@
 
 var Bars = require('../models/bars.js');
 var Users = require('../models/users.js');
-
+var configAuth = require('../config/auth');
 var Yelp = require("yelp");
 
 
 var yelp = new Yelp({
-  consumer_key: "tQ-KNmyUsBQufogw7fFnRw",
-  consumer_secret: "OeYU_MpaFIPjkUyTXPejalkz98I",
-  token: "W3biqNhFqKFAStUdNgWh6v0Jsgli4BGB",
-  token_secret: "TyCI01sBBtbyDHW6hndlNxR-UKc"
+  consumer_key: configAuth.yelpAuth.consumerKey,
+  consumer_secret: configAuth.yelpAuth.consumerSecret,
+  token: configAuth.yelpAuth.token,
+  token_secret: configAuth.yelpAuth.tokenSecret
 });
 
 
@@ -55,7 +55,7 @@ function YelpHandler() {
                 v.going = bar.going;
                 bars[index]['total'] = v.total;
                 return false;
-              } 
+              }
               else {
                 return true;
               }

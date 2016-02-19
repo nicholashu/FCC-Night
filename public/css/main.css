@@ -14,6 +14,11 @@ p {
 	padding: 0;
 }
 
+.rating{
+    float: right;
+    margin-top: -5px;
+}
+
 /****** Logo Div Styling ******/
 
 img {
