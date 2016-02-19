@@ -40,6 +40,9 @@
         };
 
         $scope.getBars = function(location) {
+          $scope.$apply(function () {
+            $localStorage.location = location;
+          });
           console.log(location);
           $scope.isLoading = true;
           $http.get(yelpUrl + location).then(function(bars) {
