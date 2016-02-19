@@ -21,13 +21,6 @@
 
         $scope.getUser();
 
-        function previousSearch(){
-          if ($scope.$storage.location){
-            $scope.getBars($scope.$storage.location);
-          }
-        }
-
-        previousSearch();
 
         $scope.activeSearch = function() {
           if ($scope.searching === true) {
@@ -61,6 +54,14 @@
             $scope.bars = bars.data;
           });
         }
+
+        function previousSearch(){
+          if ($scope.$storage.location){
+            $scope.getBars($scope.$storage.location);
+          }
+        }
+
+        previousSearch();
 
 
         $scope.submitGoing = function(bar) {
