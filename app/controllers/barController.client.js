@@ -6,7 +6,7 @@
     .controller('BarCtrl', ['$scope',
       '$resource', '$window', '$http','$localStorage',
     '$sessionStorage', 'UserService',
-      function($scope, $resource, $window, $http,$localStorage,
+      function($scope, $resource, $window, $http, $localStorage,
     $sessionStorage, UserService) {
         var appUrl = $window.location.origin;
         var yelpUrl = appUrl + '/api/yelp/';
