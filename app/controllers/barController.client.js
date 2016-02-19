@@ -41,7 +41,7 @@
 
         $scope.getBars = function(location) {
           $scope.$apply(function () {
-            $localStorage.location = location;
+            $scope.$storage.location = location;
           });
           console.log(location);
           $scope.isLoading = true;
