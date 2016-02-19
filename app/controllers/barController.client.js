@@ -10,9 +10,7 @@
     $sessionStorage, UserService) {
         var appUrl = $window.location.origin;
         var yelpUrl = appUrl + '/api/yelp/';
-        $scope.$storage = $localStorage.$default({
-          location: ""
-        });
+        $scope.$storage = $sessionStorage;
         $scope.isLoading = false;
         $scope.searching = false;
         $scope.getUser = function() {
