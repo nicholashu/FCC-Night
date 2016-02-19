@@ -58,4 +58,7 @@ app.route('/')
 
   app.route('/api/reserve/:barId/:userId')
   .post(isLoggedIn, yelpHandler.makeReservation);
+
+  app.route('/api/unreserve/:barId/:userId')
+  .post(isLoggedIn, yelpHandler.deleteReservation);
 };

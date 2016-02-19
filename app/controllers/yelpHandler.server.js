@@ -3,15 +3,16 @@
 
 var Bars = require('../models/bars.js');
 var Users = require('../models/users.js');
-var yelpAuth = require('../config/yelpAuth');
+
+
 var Yelp = require("yelp");
 
 
 var yelp = new Yelp({
-  consumer_key: yelpAuth.yelpAuth.consumerKey,
-  consumer_secret: yelpAuth.yelpAuth.consumerSecret,
-  token: yelpAuth.yelpAuth.token,
-  token_secret: yelpAuth.yelpAuth.tokenSecret
+  consumer_key: "tQ-KNmyUsBQufogw7fFnRw",
+  consumer_secret: "OeYU_MpaFIPjkUyTXPejalkz98I",
+  token: "W3biqNhFqKFAStUdNgWh6v0Jsgli4BGB",
+  token_secret: "TyCI01sBBtbyDHW6hndlNxR-UKc"
 });
 
 
@@ -108,6 +109,43 @@ function YelpHandler() {
             }, {
               $inc: {
                 going: 1
+              }
+            },
+            function(err, results) {
+              console.log("updated bar!");
+              if (err) {
+                console.log(err);
+                throw err;
+              }
+              res.json(results);
+            }
+          );
+        }
+      }
+    );
+  };
+
+
+
+  this.deleteReservation = function(req, res) {
+    console.log("removing RSVP");
+    var user = req.params.userId;
+    var bar = req.params.barId;
+    Users.update({
+        '_id': user
+      }, {
+        $pull: {
+          'shared.bars': bar
+        }
+      },
+      function(err, docs) {
+        console.log("updated user info with bar")
+        if (docs) {
+          Bars.update({
+              '_id': bar
+            }, {
+              $inc: {
+                going: -1
               }
             },
             function(err, results) {
