@@ -64,6 +64,13 @@
         previousSearch();
 
 
+      $scope.barCheck = function(bar){
+        if (indexOf($scope.user.shared.bar) !=== -1){
+          return true;
+        }else{
+          return false;
+        }
+      };
 
         $scope.submitGoing = function(bar) {
           if ($scope.user === undefined){
