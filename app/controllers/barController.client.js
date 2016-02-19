@@ -23,12 +23,12 @@
 
         function previousSearch(){
           if ($scope.$storage.location){
-            getBars($scope.$storage.location);
+            $scope.getBars($scope.$storage.location);
           }
         }
 
         previousSearch();
-        
+
         $scope.activeSearch = function() {
           if ($scope.searching === true) {
             return true;
