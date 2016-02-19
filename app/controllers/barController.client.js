@@ -64,6 +64,7 @@
         previousSearch();
 
 
+
         $scope.submitGoing = function(bar) {
           if ($scope.user === undefined){
             window.location.href = '/auth/twitter';
@@ -75,21 +76,21 @@
               checkReservations();
             });
           }
-
-          $scope.deleteGoing = function(bar) {
-            if ($scope.user === undefined){
-              window.location.href = '/auth/twitter';
-            }else{
-              var user = $scope.user._id;
-              $http.post('/api/unreserve/' + bar + '/' + user).then(function(response) {
-                console.log(response);
-                console.log("checking reservation")
-                checkReservations();
-              });
-            }
-
-
         };
+
+        $scope.deleteGoing = function(bar) {
+          if ($scope.user === undefined){
+            window.location.href = '/auth/twitter';
+          }else{
+            var user = $scope.user._id;
+            $http.post('/api/unreserve/' + bar + '/' + user).then(function(response) {
+  						console.log(response);
+              console.log("checking reservation")
+              checkReservations();
+            });
+          }
+        };
+
 
       }
     ]);
