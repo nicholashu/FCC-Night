@@ -3,15 +3,15 @@
 
 var Bars = require('../models/bars.js');
 var Users = require('../models/users.js');
-var configAuth = require('../config/auth');
+var yelpAuth = require('../config/yelpAuth');
 var Yelp = require("yelp");
 
 
 var yelp = new Yelp({
-  consumer_key: configAuth.yelpAuth.consumerKey,
-  consumer_secret: configAuth.yelpAuth.consumerSecret,
-  token: configAuth.yelpAuth.token,
-  token_secret: configAuth.yelpAuth.tokenSecret
+  consumer_key: yelpAuth.yelpAuth.consumerKey,
+  consumer_secret: yelpAuth.yelpAuth.consumerSecret,
+  token: yelpAuth.yelpAuth.token,
+  token_secret: yelpAuth.yelpAuth.tokenSecret
 });
 
 
