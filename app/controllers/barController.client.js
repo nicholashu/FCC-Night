@@ -21,6 +21,14 @@
 
         $scope.getUser();
 
+        function previousSearch(){
+          if ($scope.$storage.location){
+            getBars($scope.$storage.location);
+          }
+        }
+
+        previousSearch();
+        
         $scope.activeSearch = function() {
           if ($scope.searching === true) {
             return true;
@@ -38,9 +46,6 @@
         };
 
         $scope.getBars = function(location) {
-          $scope.$apply(function () {
-            $scope.$storage.location = location;
-          });
           console.log(location);
           $scope.isLoading = true;
           $http.get(yelpUrl + location).then(function(bars) {
