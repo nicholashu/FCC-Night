@@ -65,7 +65,7 @@
 
 
       $scope.barCheck = function(bar){
-        if ($scope.user.shared.bar.indexOf($scope.bars) !== -1){
+        if ($scopebars.indexOf($scope.user.shared.bars) !== -1){
           return true;
         }else{
           return false;
