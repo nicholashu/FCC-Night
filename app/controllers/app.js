@@ -30,10 +30,9 @@
                 return deferred.promise;
             };
         }])
-        .service('LocationStorage', ['$http', '$location', function($http, $location) {
-                var location = "";
-            }])
-      .controller('MainCtrl', ['$scope', '$http','$location',  'UserService', function($scope, $http, $location, UserService) {
+      .controller('MainCtrl', ['$scope', '$http','$location', '$localStorage',
+    '$sessionStorage', 'UserService', function($scope, $http, $location, $localStorage,
+  $sessionStorage, UserService) {
 
         $scope.changeLocation = function(url) {
           $location.path(url);
