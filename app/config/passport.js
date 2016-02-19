@@ -4,7 +4,6 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
-console.log(configAuth)
 
 module.exports = function (passport) {
 	passport.serializeUser(function (user, done) {
