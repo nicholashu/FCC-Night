@@ -69,9 +69,7 @@
         if($scope.user === undefined){
           return false;
         }
-        console.log($scope.bars);
-        console.log($scope.user.shared.bars)
-        if ($scope.bars.indexOf($scope.user.shared.bars) !== -1){
+        if ($scope.user.shared.bars.indexOf(bar) !== -1){
           return false;
         }else{
           return true;
