@@ -20,8 +20,8 @@
 				<a ng-href="{{bar.url}}">{{ bar.name }}
 				<img class="rating" ng-src="{{bar.rating_img_url}}"></a>
 				<div class="going-button">
-				<button class="btn btn-primary" ng-click="submitGoing(bar.id)">{{bar.going}} Going</button>
-				<button class="btn btn-warning" ng-show="barCheck(bar.id)" ng-click="deleteGoing(bar.id)">Cancel</button>
+				<button class="btn btn-primary" ng-click="submitGoing(bar.id)">{{bar.going}} Going</button><br>
+				<button class="btn-warning"  ng-click="deleteGoing(bar.id)">Cancel</button>
 				</div>
 				<div class="rev-text">
 				{{bar.snippet_text}}
