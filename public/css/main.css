@@ -65,6 +65,7 @@ img {
 	width: 100px;
 	font-weight: 500;
 	margin-top: 5px;
+	position: absolute;
 }
 
 .btn:focus {	/* Remove outline when hovering over button */
@@ -237,6 +238,7 @@ h3{
     width: 60%;
     left: 20%;
 		margin-top: -7%;
+		top: 15px;
 }
 
 .well{
