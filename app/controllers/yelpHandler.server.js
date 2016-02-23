@@ -28,7 +28,7 @@ function YelpHandler() {
         term: "bar",
         location: req.params.location,
         sort: 1,
-        limit: 5
+        limit: 20
       })
       .then(function(data) {
 
