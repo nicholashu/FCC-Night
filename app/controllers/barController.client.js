@@ -65,13 +65,16 @@
 
 
       $scope.barCheck = function(bar){
+        console.log("checking bar");
         if($scope.user === undefined){
           return false;
         }
+        console.log($scope.bars);
+        console.log($scope.user.shared.bars)
         if ($scope.bars.indexOf($scope.user.shared.bars) !== -1){
-          return true;
-        }else{
           return false;
+        }else{
+          return true;
         }
       };
 
